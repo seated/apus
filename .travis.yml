@@ -11,4 +11,6 @@ cache:
     - deps
 script:
   - mix format --check-formatted
-  - MIX_ENV=test mix do compile --warnings-as-errors
+  - MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

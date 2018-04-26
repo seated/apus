@@ -7,6 +7,7 @@ defmodule Apus.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
       deps: deps()
     ]
   end
@@ -23,6 +24,7 @@ defmodule Apus.MixProject do
   defp deps do
     [
       {:ex_twilio, "~> 0.6.0"},
+      {:excoveralls, "~> 0.8.1", [only: :test]},
       {:exvcr, "~> 0.10.2", only: :test}
     ]
   end
