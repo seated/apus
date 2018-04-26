@@ -1,0 +1,32 @@
+defmodule Apus.TestAdapterTest do
+  use ExUnit.Case
+
+  alias Apus.Message
+  alias Apus.TestAdapter
+
+  describe "message delivery" do
+    test "deliver/2 should deliver a message" do
+      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+
+      TestAdapter.deliver(message, %{})
+
+      assert_received {:delivered_message, ^message}
+    end
+  end
+
+  describe "adapter config" do
+    test "handle_config/1 should use the ImmediateDeliveryStrategy by default" do
+      config = TestAdapter.handle_config(%{})
+
+      assert config.deliver_later_strategy == Apus.ImmediateDeliveryStrategy
+    end
+
+    test "handle_config/1 should enforce the use of ImmediateDeliveryStrategy" do
+      config = %{deliver_later_strategy: Apus.TaskSupervisorStrategy}
+
+      assert_raise ArgumentError, fn ->
+        TestAdapter.handle_config(config)
+      end
+    end
+  end
+end
