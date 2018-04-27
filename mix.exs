@@ -35,7 +35,7 @@ defmodule Apus.MixProject do
 
   defp package do
     [
-      name: :ivar,
+      name: :apus,
       maintainers: ["Stuart Welham", "John Griffin"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/SeatedInc/apus"}
