@@ -2,6 +2,8 @@ defmodule Apus.SmsSender do
   @moduledoc """
   """
 
+  require Logger
+
   defmacro __using__(opts) do
     quote bind_quoted: [opts: opts] do
       def deliver_now(message) do
@@ -22,8 +24,12 @@ defmodule Apus.SmsSender do
 
   @doc false
   def deliver_now(adapter, message, config) do
-    if message_valid?(message) do
+    with true <- message_valid?(message) do
       adapter.deliver(message, config)
+      log_sent(message)
+    else
+      {false, :to} -> log_unsent(message, "to")
+      {false, :body} -> log_unsent(message, "body")
     end
 
     message
@@ -31,8 +37,12 @@ defmodule Apus.SmsSender do
 
   @doc false
   def deliver_later(adapter, message, config) do
-    if message_valid?(message) do
+    with true <- message_valid?(message) do
       config.deliver_later_strategy.deliver_later(adapter, message, config)
+      log_sent(message)
+    else
+      {false, :to} -> log_unsent(message, "to")
+      {false, :body} -> log_unsent(message, "body")
     end
 
     message
@@ -52,7 +62,21 @@ defmodule Apus.SmsSender do
     |> Map.put_new(:deliver_later_strategy, Apus.TaskSupervisorStrategy)
   end
 
-  defp message_valid?(%{to: to}) when to in [nil, ""], do: false
-  defp message_valid?(%{body: body}) when body in [nil, ""], do: false
+  defp message_valid?(%{to: to}) when to in [nil, ""], do: {false, :to}
+  defp message_valid?(%{body: body}) when body in [nil, ""], do: {false, :body}
   defp message_valid?(_), do: true
+
+  defp log_sent(message) do
+    Logger.debug("""
+    Sending message #{inspect(message, limit: :infinity)}
+    """)
+  end
+
+  defp log_unsent(message, field) do
+    Logger.debug("""
+    Message was not sent because the '#{field}' field was nil or empty.
+
+    Attempted message: #{inspect(message, limit: :infinity)}
+    """)
+  end
 end
