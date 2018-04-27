@@ -6,13 +6,14 @@ defmodule Apus.MixProject do
       app: :apus,
       version: "0.1.0",
       elixir: "~> 1.6",
+      description: description(),
+      package: package(),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       deps: deps()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger],
@@ -20,12 +21,24 @@ defmodule Apus.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:ex_twilio, "~> 0.6.0"},
       {:excoveralls, "~> 0.8.1", [only: :test]},
       {:exvcr, "~> 0.10.2", only: :test}
+    ]
+  end
+
+  defp description do
+    "Apus is a testable and adapter based Elixir SMS library"
+  end
+
+  defp package do
+    [
+      name: :ivar,
+      maintainers: ["Stuart Welham", "John Griffin"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/SeatedInc/apus"}
     ]
   end
 end
