@@ -22,6 +22,7 @@ defmodule Apus.TestAdapter do
         raise ArgumentError, """
         Apus.TestAdapter requires that the deliver_later_strategy is
         Apus.ImmediateDeliveryStrategy
+
         Instead it got: #{inspect(config[:deliver_later_strategy])}
         """
     end
