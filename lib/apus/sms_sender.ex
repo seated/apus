@@ -26,7 +26,7 @@ defmodule Apus.SmsSender do
   def deliver_now(adapter, message, config) do
     with true <- message_valid?(message) do
       adapter.deliver(message, config)
-      log_sent(message)
+      log_sent(message, adapter)
     else
       {false, :to} -> log_unsent(message, "to")
       {false, :body} -> log_unsent(message, "body")
@@ -39,7 +39,7 @@ defmodule Apus.SmsSender do
   def deliver_later(adapter, message, config) do
     with true <- message_valid?(message) do
       config.deliver_later_strategy.deliver_later(adapter, message, config)
-      log_sent(message)
+      log_sent(message, adapter)
     else
       {false, :to} -> log_unsent(message, "to")
       {false, :body} -> log_unsent(message, "body")
@@ -66,9 +66,11 @@ defmodule Apus.SmsSender do
   defp message_valid?(%{body: body}) when body in [nil, ""], do: {false, :body}
   defp message_valid?(_), do: true
 
-  defp log_sent(message) do
+  defp log_sent(message, adapter) do
     Logger.debug("""
-    Sending message #{inspect(message, limit: :infinity)}
+    Sending message with #{inspect(adapter)}:
+
+    #{inspect(message, limit: :infinity)}
     """)
   end
 
