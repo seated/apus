@@ -6,6 +6,14 @@ defmodule Apus.TestAdapter do
 
   alias Apus.ImmediateDeliveryStrategy
 
+  def deliver(%{to: "invalid" <> _ = message}, _config) do
+    {:error, message}
+  end
+
+  def deliver(%{from: "invalid" <> _ = message}, _config) do
+    {:error, message}
+  end
+
   def deliver(message, _config) do
     send(self(), {:delivered_message, message})
   end
