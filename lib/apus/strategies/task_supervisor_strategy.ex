@@ -5,9 +5,9 @@ defmodule Apus.TaskSupervisorStrategy do
   @behaviour Apus.DeliverLaterStrategy
 
   @doc false
-  def deliver_later(adapter, email, config) do
+  def deliver_later(adapter, message, config) do
     Task.Supervisor.start_child(supervisor_name(), fn ->
-      adapter.deliver(email, config)
+      adapter.deliver(message, config)
     end)
   end
 
