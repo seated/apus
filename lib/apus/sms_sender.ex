@@ -25,14 +25,20 @@ defmodule Apus.SmsSender do
   @doc false
   def deliver_now(adapter, message, config) do
     with true <- message_valid?(message) do
-      adapter.deliver(message, config)
-      log_sent(message, adapter)
-    else
-      {false, :to} -> log_unsent(message, "to")
-      {false, :body} -> log_unsent(message, "body")
-    end
+      case adapter.deliver(message, config) do
+        {:error, error_message} = result ->
+          log_delivery_failure(error_message, message, adapter)
+          result
 
-    message
+        _ ->
+          log_sent(message, adapter)
+          message
+      end
+    else
+      {false, field} ->
+        log_unsent(message, field)
+        {:error, {field, "Cannot be nil or empty"}}
+    end
   end
 
   @doc false
@@ -40,12 +46,12 @@ defmodule Apus.SmsSender do
     with true <- message_valid?(message) do
       config.deliver_later_strategy.deliver_later(adapter, message, config)
       log_sent(message, adapter)
+      message
     else
-      {false, :to} -> log_unsent(message, "to")
-      {false, :body} -> log_unsent(message, "body")
+      {false, field} ->
+        log_unsent(message, field)
+        {:error, {field, "Cannot be nil or empty"}}
     end
-
-    message
   end
 
   @doc false
@@ -76,9 +82,17 @@ defmodule Apus.SmsSender do
 
   defp log_unsent(message, field) do
     Logger.debug("""
-    Message was not sent because the '#{field}' field was nil or empty.
+    Message was not sent because the '#{Atom.to_string(field)}' field was nil or empty.
 
     Attempted message: #{inspect(message, limit: :infinity)}
+    """)
+  end
+
+  defp log_delivery_failure(error, message, adapter) do
+    Logger.debug("""
+    Failed to sending message with #{inspect(adapter)} (#{error}):
+
+    #{inspect(message, limit: :infinity)}
     """)
   end
 end

@@ -2,6 +2,10 @@ defmodule Apus.SmsSenderTest do
   use ExUnit.Case
 
   defmodule TestAdapter do
+    def deliver(%{body: "I fail"}, _) do
+      {:error, "failure message"}
+    end
+
     def deliver(message, config) do
       send(:sender_test, {:deliver, message, config})
     end
@@ -51,8 +55,11 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
-      TestSender.deliver_now(message)
+      expected_error = {:error, {:to, "Cannot be nil or empty"}}
 
+      result = TestSender.deliver_now(message)
+
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
 
       message = %Apus.Message{
@@ -61,8 +68,9 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
-      TestSender.deliver_now(message)
+      result = TestSender.deliver_now(message)
 
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
     end
 
@@ -72,8 +80,11 @@ defmodule Apus.SmsSenderTest do
         to: "+15557654321"
       }
 
-      TestSender.deliver_now(message)
+      expected_error = {:error, {:body, "Cannot be nil or empty"}}
 
+      result = TestSender.deliver_now(message)
+
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
 
       message = %Apus.Message{
@@ -82,9 +93,20 @@ defmodule Apus.SmsSenderTest do
         body: ""
       }
 
-      TestSender.deliver_now(message)
+      result = TestSender.deliver_now(message)
 
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
+    end
+
+    test "deliver_now/1 returns an error message when the adapter failed to send the message" do
+      message = %Apus.Message{
+        from: "+15551234567",
+        to: "+15557654321",
+        body: "I fail"
+      }
+
+      assert {:error, "failure message"} = TestSender.deliver_now(message)
     end
 
     test "deliver_later/1 should return the message" do
@@ -115,8 +137,11 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
-      TestSender.deliver_later(message)
+      expected_error = {:error, {:to, "Cannot be nil or empty"}}
 
+      result = TestSender.deliver_later(message)
+
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
 
       message = %Apus.Message{
@@ -125,8 +150,9 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
-      TestSender.deliver_later(message)
+      result = TestSender.deliver_later(message)
 
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
     end
 
@@ -136,8 +162,11 @@ defmodule Apus.SmsSenderTest do
         to: "+15557654321"
       }
 
-      TestSender.deliver_later(message)
+      expected_error = {:error, {:body, "Cannot be nil or empty"}}
 
+      result = TestSender.deliver_later(message)
+
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
 
       message = %Apus.Message{
@@ -146,8 +175,9 @@ defmodule Apus.SmsSenderTest do
         body: ""
       }
 
-      TestSender.deliver_later(message)
+      result = TestSender.deliver_later(message)
 
+      assert result == expected_error
       refute_receive {:deliver, ^message, _}, 20
     end
   end

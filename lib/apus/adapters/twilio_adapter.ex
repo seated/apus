@@ -11,6 +11,7 @@ defmodule Apus.TwilioAdapter do
     |> Map.from_struct()
     |> maybe_put_service_sid(config)
     |> Message.create()
+    |> format_response
   end
 
   def handle_config(config), do: config
@@ -21,4 +22,7 @@ defmodule Apus.TwilioAdapter do
   end
 
   defp maybe_put_service_sid(message, _config), do: message
+
+  defp format_response({:error, message, _}), do: {:error, message}
+  defp format_response(response), do: response
 end

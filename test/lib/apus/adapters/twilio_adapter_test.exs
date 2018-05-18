@@ -49,5 +49,15 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.body == "Hello there"
       end
     end
+
+    test "deliver/2 should return the twilio error message" do
+      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+
+      use_cassette "twilio_sms_failure", match_requests_on: [:request_body] do
+        {:error, message} = TwilioAdapter.deliver(message, %{})
+
+        assert message == "Some server error occurred"
+      end
+    end
   end
 end
