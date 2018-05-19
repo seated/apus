@@ -23,6 +23,18 @@ defmodule Apus.TwilioAdapterTest do
       end
     end
 
+    test "deliver/2 passes request_options to hackney" do
+      config = %{
+        request_options: [recv_timeout: 0],
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token"
+      }
+
+      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+
+      assert {:error, :timeout} == TwilioAdapter.deliver(message, config)
+    end
+
     test "deliver/2 should deliver a message with the messaging service sid set" do
       config = %{
         account_sid: "fake-account-sid",

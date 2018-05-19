@@ -7,7 +7,7 @@ defmodule Apus.TwilioAdapter do
   def deliver(message, config) do
     params = message |> convert_to_twilio_params(config) |> to_query_string()
 
-    case :hackney.post(uri(config), headers(config), params, []) do
+    case :hackney.post(uri(config), headers(config), params, options(config)) do
       {:ok, status, _headers, response} when status > 299 ->
         {:ok, body} = :hackney.body(response)
         body = Poison.decode!(body)
@@ -16,6 +16,9 @@ defmodule Apus.TwilioAdapter do
       {:ok, _status, _headers, response} ->
         {:ok, body} = :hackney.body(response)
         Poison.decode(body, as: %Apus.Message{})
+
+      error ->
+        error
     end
   end
 
@@ -57,4 +60,8 @@ defmodule Apus.TwilioAdapter do
   end
 
   defp maybe_put_service_sid(message, _config), do: message
+
+  defp options(config) do
+    config[:request_options] || []
+  end
 end
