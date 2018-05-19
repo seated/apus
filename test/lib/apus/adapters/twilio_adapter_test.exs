@@ -7,10 +7,15 @@ defmodule Apus.TwilioAdapterTest do
 
   describe "message delivery" do
     test "deliver/2 should deliver a message" do
+      config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token"
+      }
+
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
-        {:ok, %ExTwilio.Message{} = tw_message} = TwilioAdapter.deliver(message, %{})
+        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
 
         assert tw_message.from == "+15551234567"
         assert tw_message.to == "+15557654321"
@@ -20,13 +25,15 @@ defmodule Apus.TwilioAdapterTest do
 
     test "deliver/2 should deliver a message with the messaging service sid set" do
       config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token",
         messaging_service_sid: "fake-mssid"
       }
 
       message = Message.new(to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_mssid_success", match_requests_on: [:request_body] do
-        {:ok, %ExTwilio.Message{} = tw_message} = TwilioAdapter.deliver(message, config)
+        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
 
         assert tw_message.from == nil
         assert tw_message.to == "+15557654321"
@@ -36,13 +43,15 @@ defmodule Apus.TwilioAdapterTest do
 
     test "deliver/2 should override messaging service sid if from is set" do
       config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token",
         messaging_service_sid: "fake-mssid"
       }
 
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
-        {:ok, %ExTwilio.Message{} = tw_message} = TwilioAdapter.deliver(message, config)
+        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
 
         assert tw_message.from == "+15551234567"
         assert tw_message.to == "+15557654321"
@@ -51,10 +60,15 @@ defmodule Apus.TwilioAdapterTest do
     end
 
     test "deliver/2 should return the twilio error message" do
+      config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token"
+      }
+
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_failure", match_requests_on: [:request_body] do
-        {:error, message} = TwilioAdapter.deliver(message, %{})
+        {:error, message} = TwilioAdapter.deliver(message, config)
 
         assert message == "Some server error occurred"
       end
