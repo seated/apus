@@ -23,10 +23,11 @@ defmodule Apus.MixProject do
 
   defp deps do
     [
-      {:ex_twilio, "~> 0.6.0"},
       {:excoveralls, "~> 0.8.1", [only: :test]},
       {:exvcr, "~> 0.10.2", only: :test},
-      {:ex_doc, "~> 0.18.3", only: :dev}
+      {:ex_doc, "~> 0.18.3", only: :dev},
+      {:hackney, "~> 1.12"},
+      {:poison, "~> 3.1"}
     ]
   end
 
