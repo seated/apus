@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sent Messages - Apus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.9.1/tachyons.css">
+  </head>
+  <body class="ph5 pv3">
+    <h1>Sent Messages (recently sent first)</h1>
+    <div class="flex flex-wrap">
+      <%= for message <- @messages do %>
+        <div class="w-30 ba ph2 pv1 mr4 mb4 shadow-4 b--light-silver">
+          <div class="bb b--light-gray pa3 mr1">
+            <span class="moon-gray">From: </span>
+            <span><%= message.from %></span>
+          </div>
+          <div class="bb b--light-gray pa3 mr1">
+            <span class="moon-gray">To: </span>
+            <span><%= message.to %></span>
+          </div>
+          <p class="ph3 pv2"><%= message.body %></p>
+        </div>
+      <% end %>
+    </div>
+  </body>
+</html>

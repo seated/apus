@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sent Messages - Apus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.9.1/tachyons.css">
+  </head>
+  <body class="ph5 pv3">
+    <div class="flex justify-center">
+      <div class="w-50 ba ph3 pv2 mr4 mb4 mt3 shadow-4 b--light-silver">
+        <p class="b bb b--light-gray pa3 pt0 mr1">No messages have been sent yet.</p>
+        <p class="ph3">Expecting to see something here?</p>
+        <p class="ph3">
+          Make sure you have configured the sms sender to use Apus.LocalAdapter
+          or the messages will not show up here. If you have recently restarted
+          the server, only messages sent since the restart will be shown.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
