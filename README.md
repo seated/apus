@@ -4,7 +4,7 @@ Apus is an Elixir library enabling a flexible and testable approach to sending S
 
 ## Installation
 
-You can install apus you by adding it to your list of dependencies in `mix.exs` and running `mix deps.get`.
+You can install apus by adding it to your list of dependencies in `mix.exs` and running `mix deps.get`.
 
 ```elixir
 def deps do
