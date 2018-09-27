@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "{\"text\":\"Hello there\",\"src\":\"+15551234567\",\"dst\":\"+15557654321\"}",
+      "headers": {
+        "Authorization": "Basic ZmFrZS1hdXRoLWlkOmZha2UtYXV0aC10b2tlbg==",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.plivo.com/v1/Account/fake-auth-id/Message/"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"api_id\": \"fake-api-id\",\n  \"message\": \"message(s) queued\",\n  \"message_uuid\": [\n    \"fake-uuid\"\n  ]\n}",
+      "headers": {
+        "Date": "Wed, 26 Sep 2018 21:39:36 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "156",
+        "Connection": "keep-alive",
+        "Server": "nginx/1.4.6 (Ubuntu)",
+        "X-Plivo-Signature": "fake-sig",
+        "X-Plivo-Signature-V2": "fake-sig-v2",
+        "X-Plivo-Signature-V2-Nonce": "fake-sig-v2-nonce"
+      },
+      "status_code": 202,
+      "type": "ok"
+    }
+  }
+]
