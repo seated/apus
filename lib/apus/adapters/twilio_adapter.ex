@@ -44,8 +44,11 @@ defmodule Apus.TwilioAdapter do
     |> Map.to_list()
   end
 
+  @post_keys [:from, :to, :body, :messaging_service_sid]
+
   defp to_query_string(list) do
     list
+    |> Enum.filter(fn {key, _} -> key in @post_keys end)
     |> Enum.flat_map(fn {key, value} -> [{camelize(key), value}] end)
     |> URI.encode_query()
   end

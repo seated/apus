@@ -47,6 +47,7 @@ defmodule Apus.TwilioAdapterTest do
       use_cassette "twilio_sms_mssid_success", match_requests_on: [:request_body] do
         {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
 
+        assert tw_message.sid == "resource-id"
         assert tw_message.from == nil
         assert tw_message.to == "+15557654321"
         assert tw_message.body == "Hello there"
