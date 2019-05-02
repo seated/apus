@@ -23,7 +23,7 @@ defmodule Apus.MixProject do
 
   defp deps do
     [
-      {:excoveralls, "~> 0.10.0", [only: :test]},
+      {:excoveralls, "~> 0.11.0", [only: :test]},
       {:exvcr, "~> 0.10.2", only: :test},
       {:ex_doc, "~> 0.20.2", only: :dev},
       {:hackney, "~> 1.12"},
