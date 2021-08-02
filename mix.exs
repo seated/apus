@@ -27,7 +27,7 @@ defmodule Apus.MixProject do
       {:exvcr, "~> 0.13.0", only: :test},
       {:ex_doc, "~> 0.24.2", only: :dev},
       {:hackney, "~> 1.12"},
-      {:poison, "~> 4.0"},
+      {:poison, "~> 5.0"},
       {:plug, "~> 1.5"}
     ]
   end
