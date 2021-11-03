@@ -4,10 +4,8 @@ defmodule Apus.Application do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
-      worker(Apus.SentMessages, []),
+      %{id: Apus.SentMessages, start: {Apus.SentMessages, :start_link, []}},
       {Task.Supervisor, name: Apus.TaskSupervisorStrategy.supervisor_name()}
     ]
 

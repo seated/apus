@@ -4,7 +4,7 @@ defmodule Apus.MixProject do
   def project do
     [
       app: :apus,
-      version: "0.5.0",
+      version: "0.5.1",
       elixir: "~> 1.6",
       description: description(),
       package: package(),
@@ -27,7 +27,7 @@ defmodule Apus.MixProject do
       {:exvcr, "~> 0.13.0", only: :test},
       {:ex_doc, "~> 0.24.2", only: :dev},
       {:hackney, "~> 1.12"},
-      {:poison, "~> 4.0"},
+      {:jason, "~> 1.0"},
       {:plug, "~> 1.5"}
     ]
   end
@@ -41,7 +41,7 @@ defmodule Apus.MixProject do
       name: :apus,
       maintainers: ["Stuart Welham", "John Griffin"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/SeatedInc/apus"}
+      links: %{"GitHub" => "https://github.com/seated/apus"}
     ]
   end
 end
