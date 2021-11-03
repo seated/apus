@@ -10,7 +10,7 @@ defmodule Apus.PlivoAdapter do
     case :hackney.post(uri(config), headers(config), params, options(config)) do
       {:ok, status, _headers, response} when status > 299 ->
         {:ok, body} = :hackney.body(response)
-        {:ok, body} = Poison.decode(body)
+        {:ok, body} = Jason.decode(body)
         {:error, body["error"]}
 
       {:ok, _status, _headers, _response} ->
@@ -42,7 +42,7 @@ defmodule Apus.PlivoAdapter do
       dst: message.to,
       text: message.body
     }
-    |> Poison.encode!()
+    |> Jason.encode!()
   end
 
   defp options(config) do

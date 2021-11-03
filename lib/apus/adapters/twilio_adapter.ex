@@ -10,12 +10,20 @@ defmodule Apus.TwilioAdapter do
     case :hackney.post(uri(config), headers(config), params, options(config)) do
       {:ok, status, _headers, response} when status > 299 ->
         {:ok, body} = :hackney.body(response)
-        body = Poison.decode!(body)
+        body = Jason.decode!(body)
         {:error, body["message"]}
 
       {:ok, _status, _headers, response} ->
         {:ok, body} = :hackney.body(response)
-        Poison.decode(body, as: %Apus.Message{})
+        body = Jason.decode!(body)
+
+        message = %Apus.Message{
+          from: body["from"],
+          to: body["to"],
+          body: body["body"]
+        }
+
+        {:ok, message}
 
       error ->
         error
