@@ -102,6 +102,10 @@ config :my_app, MyApp.SmsSender, adapter: Apus.TestAdapter
 
 Now you can test SMS delivery using the `assert_delivered_message` macro.
 
+### Assertions
+
+For full match use the following example:
+
 ```elixir
 defmodule MyApp.RegistrationTest do
   use ExUnit.Case
@@ -122,4 +126,51 @@ defmodule MyApp.RegistrationTest do
 end
 ```
 
-There is also a `refute_delivered_message` macro for testing that a message was not delivered.
+If you only care that any message was delivered, you can use following assertion:
+```elixir
+test "message gets delivered" do
+  new_user = user
+  
+  Users.register(new_user)
+  
+  message = assert_delivered_message()
+  # do something with the delivered message...
+end
+```
+
+Lastly anonymous function matcher is also provided for more flexible assertions:
+```elixir
+test "some delivered message attrs match" do
+  new_user = user
+  
+  Users.register(new_user)
+  
+  assert_delivered_message_matches(fn message ->
+    assert message.to == new_user.phone_number
+    assert message.body =~ "partial match..."
+  end)
+end
+```
+
+### Refute
+
+There is also a `refute_delivered_message/1` macro for testing that a specific message was not delivered.
+```elixir
+  test "specific message doesn't get delivered" do
+    # Do something...
+
+    # assert that following message wasn't sent out
+    message = %Apus.Message(to: 123, body: "message")
+    refute_delivered_message(message)
+  end
+```
+
+Similarly you can also use `refute_delivered_message/0` to ensure no messages were delivered.
+```elixir
+  test "no messages delivered" do  
+    # Do something....
+
+    # assert no messages were sent out
+    refute_delivered_message()
+  end
+```
