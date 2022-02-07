@@ -9,7 +9,7 @@ You can install apus by adding it to your list of dependencies in `mix.exs` and 
 ```elixir
 def deps do
   [
-    {:apus, "~> 0.5.0"}
+    {:apus, "~> 0.6.0"}
   ]
 end
 ```
@@ -109,15 +109,15 @@ For full match use the following example:
 ```elixir
 defmodule MyApp.RegistrationTest do
   use ExUnit.Case
-  
+
   import Apus.Test
   alias Apus.Message
-  
+
   test "the user gets a message after registration" do
     new_user = user
-    
+
     Users.register(new_user)
-    
+
     assert_delivered_message %Message{
       to: new_user.phone_number,
       body: "Welcome there!"
@@ -130,9 +130,9 @@ If you only care that any message was delivered, you can use following assertion
 ```elixir
 test "message gets delivered" do
   new_user = user
-  
+
   Users.register(new_user)
-  
+
   message = assert_delivered_message()
   # do something with the delivered message...
 end
@@ -142,9 +142,9 @@ Lastly anonymous function matcher is also provided for more flexible assertions:
 ```elixir
 test "some delivered message attrs match" do
   new_user = user
-  
+
   Users.register(new_user)
-  
+
   assert_delivered_message_matches(fn message ->
     assert message.to == new_user.phone_number
     assert message.body =~ "partial match..."
@@ -167,7 +167,7 @@ There is also a `refute_delivered_message/1` macro for testing that a specific m
 
 Similarly you can also use `refute_delivered_message/0` to ensure no messages were delivered.
 ```elixir
-  test "no messages delivered" do  
+  test "no messages delivered" do
     # Do something....
 
     # assert no messages were sent out
