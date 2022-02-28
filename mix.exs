@@ -4,7 +4,7 @@ defmodule Apus.MixProject do
   def project do
     [
       app: :apus,
-      version: "0.6.0",
+      version: "0.7.0",
       elixir: "~> 1.6",
       description: description(),
       package: package(),
