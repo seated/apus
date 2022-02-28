@@ -13,7 +13,5 @@ defmodule Apus.SentMessages do
     Agent.update(__MODULE__, fn messages ->
       [message | messages]
     end)
-
-    message
   end
 end

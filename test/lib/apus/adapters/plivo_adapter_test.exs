@@ -15,7 +15,7 @@ defmodule Apus.PlivoAdapterTest do
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "plivo_sms_from_success", match_requests_on: [:request_body] do
-        {:ok, pl_message} = PlivoAdapter.deliver(message, config)
+        {:ok, %Apus.Message{} = pl_message} = PlivoAdapter.deliver(message, config)
 
         assert pl_message.from == "+15551234567"
         assert pl_message.to == "+15557654321"
