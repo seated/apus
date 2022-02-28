@@ -11,21 +11,9 @@ jobs:
       - run: mix do deps.get, compile --warnings-as-errors
       - run: mix format --check-formatted
       - run: MIX_ENV=test mix test
-  build_legacy:
-    working_directory: ~/app
-    docker:
-      - image: cimg/elixir:1.6
-    steps:
-      - checkout
-      - run: mix local.rebar --force
-      - run: mix local.hex --force
-      - run: mix do deps.get, compile --warnings-as-errors
-      - run: mix format --check-formatted
-      - run: MIX_ENV=test mix test
 
 workflows:
   version: 2
   build:
     jobs:
       - build
-      - build_legacy
