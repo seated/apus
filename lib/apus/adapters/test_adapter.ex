@@ -1,5 +1,6 @@
 defmodule Apus.TestAdapter do
   @moduledoc """
+  Adapter for use with automated testing.
   """
 
   @behaviour Apus.Adapter
@@ -15,7 +16,10 @@ defmodule Apus.TestAdapter do
   end
 
   def deliver(message, _config) do
-    send(self(), {:delivered_message, message})
+    case send(self(), {:delivered_message, message}) do
+      {:delivered_message, _} -> {:ok, message}
+      error -> {:error, error}
+    end
   end
 
   def handle_config(config) do

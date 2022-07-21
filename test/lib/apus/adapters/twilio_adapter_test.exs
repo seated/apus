@@ -15,7 +15,7 @@ defmodule Apus.TwilioAdapterTest do
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
-        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
+        {:ok, %Apus.Message{} = tw_message} = TwilioAdapter.deliver(message, config)
 
         assert tw_message.from == "+15551234567"
         assert tw_message.to == "+15557654321"

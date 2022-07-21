@@ -8,7 +8,7 @@ defmodule Apus.TestAdapterTest do
     test "deliver/2 should deliver a message" do
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
-      TestAdapter.deliver(message, %{})
+      {:ok, %Apus.Message{}} = TestAdapter.deliver(message, %{})
 
       assert_received {:delivered_message, ^message}
     end

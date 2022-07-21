@@ -9,7 +9,7 @@ defmodule Apus.LocalAdapterTest do
     test "deliver/2 should deliver a message" do
       message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
-      LocalAdapter.deliver(message, %{})
+      {:ok, %Apus.Message{}} = LocalAdapter.deliver(message, %{})
 
       assert SentMessages.all() == [message]
     end
