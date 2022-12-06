@@ -7,7 +7,7 @@ defmodule Apus.SmsSenderTest do
     end
 
     def deliver(message, config) do
-      send(:sender_test, {:deliver, message, config})
+      {:ok, send(:sender_test, {:deliver, message, config})}
     end
 
     def handle_config(config), do: config
@@ -34,7 +34,7 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
-      assert ^message = TestSender.deliver_now(message)
+      assert {:deliver, ^message, config} = TestSender.deliver_now(message)
     end
 
     test "deliver_now/1 should deliver the message" do

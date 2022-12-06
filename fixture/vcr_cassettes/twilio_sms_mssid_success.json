@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=Hello+there&From=&MessagingServiceSid=fake-mssid&To=%2B15557654321",
+      "body": "Body=Hello+there&From=&MessageId=&MessagingServiceSid=fake-mssid&Provider=&To=%2B15557654321",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"

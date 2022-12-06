@@ -20,7 +20,9 @@ defmodule Apus.TwilioAdapter do
         message = %Apus.Message{
           from: body["from"],
           to: body["to"],
-          body: body["body"]
+          body: body["body"],
+          provider: "Twilio",
+          message_id: body["sid"]
         }
 
         {:ok, message}

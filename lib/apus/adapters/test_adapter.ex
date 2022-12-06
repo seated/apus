@@ -15,7 +15,7 @@ defmodule Apus.TestAdapter do
   end
 
   def deliver(message, _config) do
-    send(self(), {:delivered_message, message})
+    {:ok, send(self(), {:delivered_message, message})}
   end
 
   def handle_config(config) do
