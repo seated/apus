@@ -12,14 +12,7 @@ defmodule Apus.TwilioAdapterTest do
         auth_token: "fake-auth-token"
       }
 
-      message =
-        Message.new(
-          from: "+15551234567",
-          to: "+15557654321",
-          body: "Hello there",
-          provider: nil,
-          message_id: nil
-        )
+      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
         {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
@@ -27,7 +20,6 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.from == "+15551234567"
         assert tw_message.to == "+15557654321"
         assert tw_message.body == "Hello there"
-        assert !is_nil(tw_message.message_id)
       end
     end
 
