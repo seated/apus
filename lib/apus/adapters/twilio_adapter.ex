@@ -52,6 +52,7 @@ defmodule Apus.TwilioAdapter do
     |> Map.from_struct()
     |> maybe_put_service_sid(config)
     |> remove_provider_and_message_id()
+    |> maybe_remove_status_callback()
     |> Map.to_list()
   end
 
@@ -75,6 +76,12 @@ defmodule Apus.TwilioAdapter do
   defp remove_provider_and_message_id(message) do
     Map.drop(message, [:provider, :message_id])
   end
+
+  defp maybe_remove_status_callback(%{status_callback: nil} = message) do
+    Map.drop(message, [:status_callback])
+  end
+
+  defp maybe_remove_status_callback(%{status_callback: _status_callback} = message), do: message
 
   defp options(config) do
     config[:request_options] || []

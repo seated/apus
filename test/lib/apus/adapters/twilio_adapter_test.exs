@@ -18,7 +18,8 @@ defmodule Apus.TwilioAdapterTest do
           to: "+15557654321",
           body: "Hello there",
           provider: nil,
-          message_id: nil
+          message_id: nil,
+          status_callback: "https://valid_url.com"
         )
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
@@ -30,6 +31,11 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.message_id == "SM123"
         assert tw_message.provider == "twilio"
       end
+
+      cassette = File.read!("fixture/vcr_cassettes/twilio_sms_from_success.json")
+
+      assert cassette =~
+               "\"body\": \"Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&To=%2B15557654321\""
     end
 
     test "deliver/2 passes request_options to hackney" do
@@ -69,7 +75,13 @@ defmodule Apus.TwilioAdapterTest do
         messaging_service_sid: "fake-mssid"
       }
 
-      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+      message =
+        Message.new(
+          from: "+15551234567",
+          to: "+15557654321",
+          body: "Hello there",
+          status_callback: "https://valid_url.com"
+        )
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
         {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
