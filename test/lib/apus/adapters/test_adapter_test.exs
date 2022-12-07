@@ -10,7 +10,7 @@ defmodule Apus.TestAdapterTest do
 
       TestAdapter.deliver(message, %{})
 
-      assert_received {:delivered_message, ^message}
+      assert_received {:ok, ^message}
     end
 
     test "deliver/2 should support testing invalid to number" do
@@ -19,7 +19,7 @@ defmodule Apus.TestAdapterTest do
       result = TestAdapter.deliver(message, %{})
 
       assert result == {:error, "invalid number"}
-      refute_receive {:delivered_message, ^message}, 20
+      refute_receive {:ok, ^message}, 20
     end
 
     test "deliver/2 should support testing invalid from number" do
@@ -28,7 +28,7 @@ defmodule Apus.TestAdapterTest do
       result = TestAdapter.deliver(message, %{})
 
       assert result == {:error, "invalid number"}
-      refute_receive {:delivered_message, ^message}, 20
+      refute_receive {:ok, ^message}, 20
     end
   end
 
