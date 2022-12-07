@@ -6,7 +6,7 @@ defmodule Apus.SmsSenderTest do
       {:error, "failure message"}
     end
 
-    def deliver(message, config) do
+    def deliver(message, _config) do
       send(:sender_test, {:ok, message})
     end
 

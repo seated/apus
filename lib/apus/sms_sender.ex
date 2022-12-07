@@ -30,7 +30,7 @@ defmodule Apus.SmsSender do
           log_delivery_failure(error_message, message, adapter)
           result
 
-        {:ok, sent_message} ->
+        {_, sent_message} ->
           log_sent(sent_message, adapter)
           sent_message
       end

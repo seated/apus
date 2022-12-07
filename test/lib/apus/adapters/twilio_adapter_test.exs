@@ -31,11 +31,6 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.message_id == "SM123"
         assert tw_message.provider == "twilio"
       end
-
-      cassette = File.read!("fixture/vcr_cassettes/twilio_sms_from_success.json")
-
-      assert cassette =~
-               "\"body\": \"Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&To=%2B15557654321\""
     end
 
     test "deliver/2 passes request_options to hackney" do
