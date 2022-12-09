@@ -15,7 +15,9 @@ defmodule Apus.TestAdapter do
   end
 
   def deliver(message, _config) do
-    send(self(), {:delivered_message, message})
+    sent_message = Map.put(message, :message_id, "SM123")
+    send(self(), {:delivered_message, sent_message})
+    {:ok, sent_message}
   end
 
   def handle_config(config) do

@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=Hello+there&From=%2B15551234567&To=%2B15557654321",
+      "body": "Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&To=%2B15557654321",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -13,23 +13,25 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"sid\": \"resource-id\", \"date_created\": \"Wed, 25 Apr 2018 21:11:33 +0000\", \"date_updated\": \"Wed, 25 Apr 2018 21:11:33 +0000\", \"date_sent\": null, \"account_sid\": \"fake-account-sid\", \"to\": \"+15557654321\", \"from\": \"+15551234567\", \"messaging_service_sid\": null, \"body\": \"Hello there\", \"status\": \"queued\", \"num_segments\": \"1\", \"num_media\": \"0\", \"direction\": \"outbound-api\", \"api_version\": \"2010-04-01\", \"price\": null, \"price_unit\": \"USD\", \"error_code\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id.json\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id/Media.json\"}}",
+      "body": "{\"body\": \"Hello there\", \"num_segments\": \"1\", \"direction\": \"outbound-api\", \"from\": \"+15551234567\", \"date_updated\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"price\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id.json\", \"account_sid\": \"fake-account-sid\", \"num_media\": \"0\", \"to\": \"+15557654321\", \"date_created\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"status\": \"queued\", \"sid\": \"SM123\", \"date_sent\": null, \"messaging_service_sid\": null, \"error_code\": null, \"price_unit\": \"USD\", \"api_version\": \"2010-04-01\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id/Media.json\"}}",
       "headers": {
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since",
-        "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Expose-Headers": "ETag",
+        "Date": "Tue, 06 Dec 2022 18:35:34 GMT",
         "Content-Type": "application/json",
-        "Date": "Wed, 25 Apr 2018 21:11:33 GMT",
-        "Strict-Transport-Security": "max-age=15768000",
-        "Twilio-Concurrent-Requests": "1",
-        "Twilio-Request-Duration": "0.093",
+        "Content-Length": "775",
+        "Connection": "keep-alive",
         "Twilio-Request-Id": "request-id",
+        "Twilio-Request-Duration": "0.049",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key",
+        "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+        "Access-Control-Expose-Headers": "ETag",
+        "Access-Control-Allow-Credentials": "true",
         "X-Powered-By": "AT-5000",
+        "Twilio-Concurrent-Requests": "1",
         "X-Shenanigans": "none",
-        "Content-Length": "777",
-        "Connection": "keep-alive"
+        "X-Home-Region": "us1",
+        "X-API-Domain": "api.twilio.com",
+        "Strict-Transport-Security": "max-age=31536000"
       },
       "status_code": 201,
       "type": "ok"

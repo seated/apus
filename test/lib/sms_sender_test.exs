@@ -6,8 +6,8 @@ defmodule Apus.SmsSenderTest do
       {:error, "failure message"}
     end
 
-    def deliver(message, config) do
-      send(:sender_test, {:deliver, message, config})
+    def deliver(message, _config) do
+      send(:sender_test, {:ok, message})
     end
 
     def handle_config(config), do: config
@@ -46,7 +46,7 @@ defmodule Apus.SmsSenderTest do
 
       TestSender.deliver_now(message)
 
-      assert_receive {:deliver, ^message, _}
+      assert_receive {:ok, ^message}
     end
 
     test "deliver_now/1 should not deliver a message without a recipient" do
@@ -60,7 +60,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_now(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
 
       message = %Apus.Message{
         from: "+15551234567",
@@ -71,7 +71,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_now(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
     end
 
     test "deliver_now/1 should not deliver a message without a body" do
@@ -85,7 +85,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_now(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
 
       message = %Apus.Message{
         from: "+15551234567",
@@ -96,7 +96,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_now(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
     end
 
     test "deliver_now/1 returns an error message when the adapter failed to send the message" do
@@ -128,7 +128,7 @@ defmodule Apus.SmsSenderTest do
 
       TestSender.deliver_later(message)
 
-      assert_receive {:deliver, ^message, _}
+      assert_receive {:ok, ^message}
     end
 
     test "deliver_later/1 should not deliver a message without a recipient" do
@@ -142,7 +142,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_later(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
 
       message = %Apus.Message{
         from: "+15551234567",
@@ -153,7 +153,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_later(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
     end
 
     test "deliver_later/1 should not deliver a message without a body" do
@@ -167,7 +167,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_later(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
+      refute_receive {:ok, ^message}, 20
 
       message = %Apus.Message{
         from: "+15551234567",
@@ -178,22 +178,7 @@ defmodule Apus.SmsSenderTest do
       result = TestSender.deliver_later(message)
 
       assert result == expected_error
-      refute_receive {:deliver, ^message, _}, 20
-    end
-  end
-
-  describe "delivery config" do
-    test "sets the default deliver_later_strategy if none is set" do
-      message = %Apus.Message{
-        from: "+15551234567",
-        to: "+15557654321",
-        body: "Hello there"
-      }
-
-      TestSender.deliver_later(message)
-
-      assert_receive {:deliver, _, config}
-      assert config.deliver_later_strategy == Apus.TaskSupervisorStrategy
+      refute_receive {:ok, ^message}, 20
     end
   end
 end

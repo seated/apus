@@ -12,7 +12,15 @@ defmodule Apus.TwilioAdapterTest do
         auth_token: "fake-auth-token"
       }
 
-      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+      message =
+        Message.new(
+          from: "+15551234567",
+          to: "+15557654321",
+          body: "Hello there",
+          provider: nil,
+          message_id: nil,
+          status_callback: "https://valid_url.com"
+        )
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
         {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
@@ -20,6 +28,8 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.from == "+15551234567"
         assert tw_message.to == "+15557654321"
         assert tw_message.body == "Hello there"
+        assert tw_message.message_id == "SM123"
+        assert tw_message.provider == "twilio"
       end
     end
 
@@ -60,7 +70,13 @@ defmodule Apus.TwilioAdapterTest do
         messaging_service_sid: "fake-mssid"
       }
 
-      message = Message.new(from: "+15551234567", to: "+15557654321", body: "Hello there")
+      message =
+        Message.new(
+          from: "+15551234567",
+          to: "+15557654321",
+          body: "Hello there",
+          status_callback: "https://valid_url.com"
+        )
 
       use_cassette "twilio_sms_from_success", match_requests_on: [:request_body] do
         {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
