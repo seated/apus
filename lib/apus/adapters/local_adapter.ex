@@ -7,7 +7,7 @@ defmodule Apus.LocalAdapter do
   alias Apus.SentMessages
 
   def deliver(message, _config) do
-    SentMessages.push(message)
+    SentMessages.push({:ok, message})
   end
 
   def handle_config(config), do: config

@@ -11,7 +11,7 @@ defmodule Apus.LocalAdapterTest do
 
       LocalAdapter.deliver(message, %{})
 
-      assert SentMessages.all() == [message]
+      assert SentMessages.all() == [{:ok, message}]
     end
   end
 
