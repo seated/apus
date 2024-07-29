@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "{\"channel\":\"sms\",\"content\":{\"text\":\"Hello there\",\"type\":\"text\"},\"from\":\"88979\",\"to\":[{\"msisdn\":[\"+15557654321\"]}]}",
+      "headers": {
+        "key": "fake_service_key",
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.us.webexconnect.io/v2/messages"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"requestTimestamp\":\"2024-07-30T00:37:36.041+01:00\",\"messageId\":\"fake_message_id\",\"correlationId\":\"\",\"status\":\"queued\"}",
+      "headers": {
+        "Date": "Mon, 29 Jul 2024 23:37:36 GMT",
+        "Content-Type": "application/json;charset=ISO-8859-1",
+        "Content-Length": "140",
+        "Connection": "keep-alive",
+        "x-quota-limit-remaining": "9999994",
+        "x-quota-limit-limit": "10000000",
+        "x-quota-limit-reset": "2024-07-30T00:00:00.000Z",
+        "x-rate-limit-remaining": "29",
+        "x-rate-limit-limit": "30"
+      },
+      "status_code": 201,
+      "type": "ok"
+    }
+  }
+]
