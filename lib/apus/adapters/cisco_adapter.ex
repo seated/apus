@@ -37,6 +37,8 @@ defmodule Apus.CiscoAdapter do
     end
   end
 
+  def handle_config(config), do: config
+
   defp convert_to_cisco_params(message) do
     %{
       channel: "sms",

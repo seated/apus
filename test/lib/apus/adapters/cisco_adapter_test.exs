@@ -1,4 +1,4 @@
-defmodule Apus.TwilioAdapterTest do
+defmodule Apus.CiscoAdapterTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney, options: [clear_mock: true]
 
