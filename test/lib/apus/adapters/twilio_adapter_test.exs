@@ -87,6 +87,26 @@ defmodule Apus.TwilioAdapterTest do
       end
     end
 
+    test "deliver/2 should deliver a whatsapp message with a content sid and content variables" do
+      config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token",
+        messaging_service_sid: "fake-mssid"
+      }
+
+      message =
+        Message.new(
+          to: "whatsapp:+445557654321",
+          content_sid: "fake-content-sid",
+          content_variables: %{"1" => "1234"},
+        )
+
+      use_cassette "twilio_whatsapp_message_success", match_requests_on: [:request_body] do
+        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
+        assert tw_message.to == "whatsapp:+445557654321"
+      end
+    end
+
     test "deliver/2 should return the twilio error message" do
       config = %{
         account_sid: "fake-account-sid",
