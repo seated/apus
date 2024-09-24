@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "Body=&ContentSid=fake-content-sid&ContentVariables=%7B%221%22%3A%221234%22%7D&From=&MessagingServiceSid=fake-mssid&To=whatsapp%3A%2B445557654321",
+      "headers": {
+        "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.twilio.com/2010-04-01/Accounts/fake-account-sid/Messages.json"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"sid\": \"resource-id\", \"date_created\": \"Wed, 25 Apr 2018 21:24:02 +0000\", \"date_updated\": \"Wed, 25 Apr 2018 21:24:02 +0000\", \"date_sent\": null, \"account_sid\": \"fake-account-sid\", \"to\": \"whatsapp:+445557654321\", \"from\": null, \"messaging_service_sid\": \"fake-mssid\", \"body\": \"\", \"status\": \"accepted\", \"num_segments\": \"0\", \"num_media\": \"0\", \"direction\": \"outbound-api\", \"api_version\": \"2010-04-01\", \"price\": null, \"price_unit\": null, \"error_code\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id.json\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id/Media.json\"}}",
+      "headers": {
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since",
+        "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "ETag",
+        "Content-Type": "application/json",
+        "Date": "Wed, 25 Apr 2018 21:24:02 GMT",
+        "Strict-Transport-Security": "max-age=15768000",
+        "Twilio-Concurrent-Requests": "1",
+        "Twilio-Request-Duration": "0.043",
+        "Twilio-Request-Id": "request-id",
+        "X-Powered-By": "AT-5000",
+        "X-Shenanigans": "none",
+        "Content-Length": "799",
+        "Connection": "keep-alive"
+      },
+      "status_code": 201,
+      "type": "ok"
+    }
+  }
+]

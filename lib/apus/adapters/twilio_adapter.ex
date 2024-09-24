@@ -53,13 +53,26 @@ defmodule Apus.TwilioAdapter do
     |> maybe_put_service_sid(config)
     |> remove_provider_and_message_id()
     |> maybe_remove_status_callback()
+    |> maybe_remove_content_sid()
+    |> maybe_remove_content_variables()
     |> Map.to_list()
   end
 
   defp to_query_string(list) do
     list
-    |> Enum.flat_map(fn {key, value} -> [{camelize(key), value}] end)
+    |> Enum.flat_map(fn {key, value} ->
+      [{camelize(key), process_value(value)}]
+    end)
     |> URI.encode_query()
+  end
+
+  defp process_value(value) do
+    # content_variables will be a map and we need to convert it to a string
+    if is_map(value) do
+      Jason.encode!(value)
+    else
+      value
+    end
   end
 
   defp camelize(name) do
@@ -82,6 +95,18 @@ defmodule Apus.TwilioAdapter do
   end
 
   defp maybe_remove_status_callback(%{status_callback: _status_callback} = message), do: message
+
+  defp maybe_remove_content_sid(%{content_sid: nil} = message) do
+    Map.drop(message, [:content_sid])
+  end
+
+  defp maybe_remove_content_sid(%{content_sid: _content_sid} = message), do: message
+
+  defp maybe_remove_content_variables(%{content_variables: nil} = message) do
+    Map.drop(message, [:content_variables])
+  end
+
+  defp maybe_remove_content_variables(%{content_variables: _content_variables} = message), do: message
 
   defp options(config) do
     config[:request_options] || []
