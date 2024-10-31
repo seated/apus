@@ -69,8 +69,18 @@ defmodule Apus.SmsSender do
   end
 
   defp message_valid?(%{to: to}) when to in [nil, ""], do: {false, :to}
-  defp message_valid?(%{body: body}) when body in [nil, ""], do: {false, :body}
-  defp message_valid?(_), do: true
+
+  defp message_valid?(%{body: body, content_sid: sid}) do
+    cond do
+      is_nil_or_empty(body) and not is_nil_or_empty(sid) -> true
+      not is_nil_or_empty(body) and is_nil_or_empty(sid) -> true
+      true -> {false, :body}
+    end
+  end
+
+  defp is_nil_or_empty(value) do
+    value in [nil, ""]
+  end
 
   defp log_sent(message, adapter) do
     Logger.debug("""
