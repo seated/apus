@@ -44,6 +44,16 @@ defmodule Apus.SmsSenderTest do
         body: "Hello there"
       }
 
+      assert ^message = TestSender.deliver_now(message)
+    end
+
+    test "deliver_now/1 should deliver the message using a content_sid" do
+      message = %Apus.Message{
+        from: "+15551234567",
+        to: "+15557654321",
+        content_sid: "fake-id"
+      }
+
       TestSender.deliver_now(message)
 
       assert_receive {:ok, ^message}
