@@ -6,19 +6,20 @@ defmodule Apus.SmsSender do
 
   defmacro __using__(opts) do
     quote bind_quoted: [opts: opts] do
-      def deliver_now(message) do
-        config = build_config()
+      def deliver_now(message, config \\ %{}) do
+        config = build_config(config)
         Apus.SmsSender.deliver_now(config.adapter, message, config)
       end
 
-      def deliver_later(message) do
-        config = build_config()
+      def deliver_later(message, config \\ %{}) do
+        config = build_config(config)
         Apus.SmsSender.deliver_later(config.adapter, message, config)
       end
 
       otp_app = Keyword.fetch!(opts, :otp_app)
 
-      defp build_config, do: Apus.SmsSender.build_config(__MODULE__, unquote(otp_app))
+      defp build_config(overrides),
+        do: Apus.SmsSender.build_config(__MODULE__, unquote(otp_app), overrides)
     end
   end
 
@@ -55,11 +56,12 @@ defmodule Apus.SmsSender do
   end
 
   @doc false
-  def build_config(sms_sender, otp_app) do
+  def build_config(sms_sender, otp_app, config_overrides) do
     otp_app
     |> Application.fetch_env!(sms_sender)
     |> Map.new()
     |> handle_adapter_config()
+    |> Map.merge(config_overrides)
   end
 
   defp handle_adapter_config(%{adapter: adapter} = config) do
