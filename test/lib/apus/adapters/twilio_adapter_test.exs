@@ -19,6 +19,7 @@ defmodule Apus.TwilioAdapterTest do
           body: "Hello there",
           provider: nil,
           message_id: nil,
+          tags: %{tag1: "value1", tag2: "value2"},
           status_callback: "https://valid_url.com"
         )
 
@@ -30,6 +31,7 @@ defmodule Apus.TwilioAdapterTest do
         assert tw_message.body == "Hello there"
         assert tw_message.message_id == "SM123"
         assert tw_message.provider == "twilio"
+        assert tw_message.tags == %{"tag1" => "value1", "tag2" => "value2"}
       end
     end
 
@@ -75,6 +77,7 @@ defmodule Apus.TwilioAdapterTest do
           from: "+15551234567",
           to: "+15557654321",
           body: "Hello there",
+          tags: %{tag1: "value1", tag2: "value2"},
           status_callback: "https://valid_url.com"
         )
 
@@ -98,7 +101,7 @@ defmodule Apus.TwilioAdapterTest do
         Message.new(
           to: "whatsapp:+445557654321",
           content_sid: "fake-content-sid",
-          content_variables: %{"1" => "1234"},
+          content_variables: %{"1" => "1234"}
         )
 
       use_cassette "twilio_whatsapp_message_success", match_requests_on: [:request_body] do

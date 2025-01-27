@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&To=%2B15557654321",
+      "body": "Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&Tags=%7B%22tag1%22%3A%22value1%22%2C%22tag2%22%3A%22value2%22%7D&To=%2B15557654321",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"body\": \"Hello there\", \"num_segments\": \"1\", \"direction\": \"outbound-api\", \"from\": \"+15551234567\", \"date_updated\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"price\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id.json\", \"account_sid\": \"fake-account-sid\", \"num_media\": \"0\", \"to\": \"+15557654321\", \"date_created\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"status\": \"queued\", \"sid\": \"SM123\", \"date_sent\": null, \"messaging_service_sid\": null, \"error_code\": null, \"price_unit\": \"USD\", \"api_version\": \"2010-04-01\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id/Media.json\"}}",
+      "body": "{\"tags\": {\"tag1\": \"value1\", \"tag2\": \"value2\"}, \"body\": \"Hello there\", \"num_segments\": \"1\", \"direction\": \"outbound-api\", \"from\": \"+15551234567\", \"date_updated\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"price\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id.json\", \"account_sid\": \"fake-account-sid\", \"num_media\": \"0\", \"to\": \"+15557654321\", \"date_created\": \"Tue, 06 Dec 2022 18:35:34 +0000\", \"status\": \"queued\", \"sid\": \"SM123\", \"date_sent\": null, \"messaging_service_sid\": null, \"error_code\": null, \"price_unit\": \"USD\", \"api_version\": \"2010-04-01\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/fake-account-sid/Messages/resource-id/Media.json\"}}",
       "headers": {
         "Date": "Tue, 06 Dec 2022 18:35:34 GMT",
         "Content-Type": "application/json",
