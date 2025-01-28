@@ -9,7 +9,7 @@ You can install apus by adding it to your list of dependencies in `mix.exs` and 
 ```elixir
 def deps do
   [
-    {:apus, "~> 0.13.0"}
+    {:apus, "~> 0.14.0"}
   ]
 end
 ```
@@ -127,6 +127,7 @@ end
 ```
 
 If you only care that any message was delivered, you can use following assertion:
+
 ```elixir
 test "message gets delivered" do
   new_user = user
@@ -139,6 +140,7 @@ end
 ```
 
 Lastly anonymous function matcher is also provided for more flexible assertions:
+
 ```elixir
 test "some delivered message attrs match" do
   new_user = user
@@ -155,6 +157,7 @@ end
 ### Refute
 
 There is also a `refute_delivered_message/1` macro for testing that a specific message was not delivered.
+
 ```elixir
   test "specific message doesn't get delivered" do
     # Do something...
@@ -166,6 +169,7 @@ There is also a `refute_delivered_message/1` macro for testing that a specific m
 ```
 
 Similarly you can also use `refute_delivered_message/0` to ensure no messages were delivered.
+
 ```elixir
   test "no messages delivered" do
     # Do something....
