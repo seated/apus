@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=&ContentSid=fake-content-sid&ContentVariables=%7B%221%22%3A%221234%22%7D&From=&MessagingServiceSid=fake-mssid&To=whatsapp%3A%2B445557654321",
+      "body": "Body=&ContentSid=fake-content-sid&ContentVariables=%7B%221%22%3A%221234%22%7D&From=&MessagingServiceSid=fake-mssid&Tags=&To=whatsapp%3A%2B445557654321",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"

@@ -22,6 +22,7 @@ defmodule Apus.TwilioAdapter do
           to: body["to"],
           body: body["body"],
           provider: "twilio",
+          tags: body["tags"],
           message_id: body["sid"]
         }
 
