@@ -31,6 +31,22 @@ defmodule Apus.TestAdapterTest do
       assert result == {:error, "invalid number"}
       refute_receive {:delivered_message, ^message}, 20
     end
+
+    test "deliver/2 should return an empty string for the body when it's not present" do
+      message =
+        Message.new(
+          to: "whatsapp:+15551234567",
+          content_sid: "test-sid",
+          content_variables: %{test: "Variable"},
+          message_id: "SM123"
+        )
+
+      {:ok, sent_message} = TestAdapter.deliver(message, %{})
+
+      assert_received {:delivered_message, ^message}
+      assert sent_message.message_id == "SM123"
+      assert sent_message.body == ""
+    end
   end
 
   describe "adapter config" do

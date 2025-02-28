@@ -59,7 +59,7 @@ defmodule Apus.MessageTest do
                body: "Hello there",
                provider: nil,
                message_id: nil,
-               tags: %{tag1: "value1", tag2: "value2"},
+               tags: %{tag1: "value1", tag2: "value2"}
              }
     end
   end

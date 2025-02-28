@@ -107,7 +107,8 @@ defmodule Apus.TwilioAdapter do
     Map.drop(message, [:content_variables])
   end
 
-  defp maybe_remove_content_variables(%{content_variables: _content_variables} = message), do: message
+  defp maybe_remove_content_variables(%{content_variables: _content_variables} = message),
+    do: message
 
   defp options(config) do
     config[:request_options] || []

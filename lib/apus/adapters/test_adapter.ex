@@ -16,9 +16,21 @@ defmodule Apus.TestAdapter do
 
   def deliver(message, _config) do
     sent_message = Map.put(message, :message_id, "SM123")
+
     send(self(), {:delivered_message, sent_message})
+
+    sent_message = update_body(sent_message)
     {:ok, sent_message}
   end
+
+  # Mimic the behavior of the Twilio adapter when the body is not present and
+  # content_variables are used. If the body is not present, Apus returns an empty string.
+  defp update_body(%{body: nil, content_variables: content_variables} = message)
+       when is_map(content_variables) do
+    Map.put(message, :body, "")
+  end
+
+  defp update_body(message), do: message
 
   def handle_config(config) do
     case Map.get(config, :deliver_later_strategy) do
