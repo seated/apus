@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"dst\":\"+15557654321\",\"src\":\"+15551234568\",\"text\":\"Hello there\"}",
+      "body": "{\"text\":\"Hello there\",\"dst\":\"+15557654321\",\"src\":\"+15551234568\"}",
       "headers": {
         "Authorization": "Basic ZmFrZS1hdXRoLWlkOmZha2UtYXV0aC10b2tlbg==",
         "Content-Type": "application/json"
