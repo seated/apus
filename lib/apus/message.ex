@@ -10,7 +10,8 @@ defmodule Apus.Message do
             status_callback: nil,
             content_sid: nil,
             content_variables: nil,
-            tags: nil
+            tags: nil,
+            validity_period: nil
 
   def new(attrs \\ []), do: struct(__MODULE__, attrs)
 end
