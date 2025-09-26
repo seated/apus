@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=Hello+there&From=%2B15551234567&Tags=&To=%2B15557654321",
+      "body": "Body=Hello+there&To=%2B15557654321&From=%2B15551234567&Tags=",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"

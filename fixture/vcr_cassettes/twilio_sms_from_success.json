@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "Body=Hello+there&From=%2B15551234567&StatusCallback=https%3A%2F%2Fvalid_url.com&Tags=%7B%22tag1%22%3A%22value1%22%2C%22tag2%22%3A%22value2%22%7D&To=%2B15557654321",
+      "body": "Body=Hello+there&To=%2B15557654321&From=%2B15551234567&Tags=%7B%22tag1%22%3A%22value1%22%2C%22tag2%22%3A%22value2%22%7D&StatusCallback=https%3A%2F%2Fvalid_url.com",
       "headers": {
         "Authorization": "Basic ZmFrZS1hY2NvdW50LXNpZDpmYWtlLWF1dGgtdG9rZW4=",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
