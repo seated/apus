@@ -35,6 +35,29 @@ defmodule Apus.TwilioAdapterTest do
       end
     end
 
+    test "deliver/2 should support setting the validity period" do
+      config = %{
+        account_sid: "fake-account-sid",
+        auth_token: "fake-auth-token"
+      }
+
+      message =
+        Message.new(
+          from: "+15551234567",
+          to: "+15557654321",
+          body: "Hello there",
+          validity_period: 60
+        )
+
+      use_cassette "twilio_sms_validity_period", match_requests_on: [:request_body] do
+        {:ok, %{} = tw_message} = TwilioAdapter.deliver(message, config)
+
+        assert tw_message.from == "+15551234567"
+        assert tw_message.to == "+15557654321"
+        assert tw_message.body == "Hello there"
+      end
+    end
+
     test "deliver/2 passes request_options to hackney" do
       config = %{
         request_options: [recv_timeout: 0],

@@ -4,6 +4,8 @@ defmodule Apus.TwilioAdapter do
 
   @behaviour Apus.Adapter
 
+  require Logger
+
   def deliver(message, config) do
     params = message |> convert_to_twilio_params(config) |> to_query_string()
 
@@ -16,6 +18,8 @@ defmodule Apus.TwilioAdapter do
       {:ok, _status, _headers, response} ->
         {:ok, body} = :hackney.body(response)
         body = Jason.decode!(body)
+
+        Logger.info("Twilio response: #{inspect(body)}")
 
         message = %Apus.Message{
           from: body["from"],
@@ -56,6 +60,7 @@ defmodule Apus.TwilioAdapter do
     |> maybe_remove_status_callback()
     |> maybe_remove_content_sid()
     |> maybe_remove_content_variables()
+    |> maybe_remove_validity_period()
     |> Map.to_list()
   end
 
@@ -109,6 +114,12 @@ defmodule Apus.TwilioAdapter do
 
   defp maybe_remove_content_variables(%{content_variables: _content_variables} = message),
     do: message
+
+  defp maybe_remove_validity_period(%{validity_period: nil} = message) do
+    Map.drop(message, [:validity_period])
+  end
+
+  defp maybe_remove_validity_period(%{validity_period: _validity_period} = message), do: message
 
   defp options(config) do
     config[:request_options] || []
