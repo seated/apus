@@ -9,7 +9,7 @@ You can install apus by adding it to your list of dependencies in `mix.exs` and 
 ```elixir
 def deps do
   [
-    {:apus, "~> 0.14.0"}
+    {:apus, "~> 0.15.0"}
   ]
 end
 ```
