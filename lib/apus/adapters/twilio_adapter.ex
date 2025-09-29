@@ -4,8 +4,6 @@ defmodule Apus.TwilioAdapter do
 
   @behaviour Apus.Adapter
 
-  require Logger
-
   def deliver(message, config) do
     params = message |> convert_to_twilio_params(config) |> to_query_string()
 
@@ -18,8 +16,6 @@ defmodule Apus.TwilioAdapter do
       {:ok, _status, _headers, response} ->
         {:ok, body} = :hackney.body(response)
         body = Jason.decode!(body)
-
-        Logger.info("Twilio response: #{inspect(body)}")
 
         message = %Apus.Message{
           from: body["from"],
